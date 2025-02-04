@@ -10,8 +10,17 @@ def chat_view(request):
     chat_messages = chat_group.chat_messages.all()[:30]
     form = ChatMessageCreateForm()
 
+
+    # if request.method=="POST":
+    #     form = ChatMessageCreateForm(request.POST)
+    #     if form.is_valid():
+    #         message = form.save(commit=False)
+    #         message.author = request.user
+    #         message.group = chat_group
+    #         message.save()
+    #         return redirect('home')
+
     if request.htmx:
-        print(request.htmx)
         form = ChatMessageCreateForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
