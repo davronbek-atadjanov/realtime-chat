@@ -13,8 +13,8 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default=[])
-
+# ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=Csv(), default=[])
+ALLOWED_HOSTS = ['*']
 CSRF_TRUSTED_ORIGINS = [ 'https://*' ]
 
 
@@ -142,3 +142,20 @@ ACCOUNT_SIGNUP_REDIRECT_URL = "{% url 'account_signup' %}?next={% url 'profile-o
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
+
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer",
+    }
+}
+
+
+CHANNELS = {
+    'websocket': {
+        'allowed_origins': [
+            'http://localhost',
+            'http://127.0.0.1',
+            'http://[::1]',  # Allow IPv6 localhost
+        ]
+    }
+}
